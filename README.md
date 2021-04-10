@@ -23,6 +23,8 @@ in development
 Przykład (zgony na COVID19 na przestrzeni powiatów oraz czasu):  
 ![](spatial/images/zgonyPL.gif)
 
+*Daty na dzień publikacji
+
 ## shiny App 
 
 in development
