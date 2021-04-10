@@ -1,17 +1,15 @@
 # coronaPL
 corona virus data from Polish government and more.
 
-DATA: https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2  
-Description:https://www.gov.pl/web/koronawirus/metodologia  
-Plik `govDATA.R` pozyskanie danych.
+URL GOV: https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2  
+URL GOVDescription:https://www.gov.pl/web/koronawirus/metodologia  
 
-Date Wojewodztwa: `data/woj_df.csv`  
-Date Powiaty: `data/pow_df.csv`
+**Plik `govDATA.R` pozyskanie danych.**
 
-Pliki mozna wykorzystac do stworzenia DB. 
-Nastepnie dane dzienne moga byc dodawane np. poprzez skrypt uruchamiany przez `cron`.
-Przykladowy skrypt do tego celu `govDATAdailyupdate.R`.
+Połączone pliki z archiwum gov wraz z poprawnym formatowaniem polskich znaków.  
+**Date Wojewodztwa: `data/woj_df.csv`**  
+**Date Powiaty: `data/pow_df.csv`**
 
-Dane dzienne pod linkami:  
-- Woj: https://www.arcgis.com/sharing/rest/content/items/153a138859bb4c418156642b5b74925b/data  
-- Pow: https://www.arcgis.com/sharing/rest/content/items/6ff45d6b5b224632a672e764e04e8394/data
+Pliki można wykorzystać do stworzenia DB. 
+Następnie dane dzienne moga byc dodawane np. poprzez skrypt uruchamiany przez `cron`.
+Przykładowy skrypt do tego celu `govDATAdailyupdate.R`.
