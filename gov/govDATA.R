@@ -11,6 +11,7 @@ pacman::p_load(
 main_url <- "https://arcgis.com/sharing/rest/content/items/"
 # Looks to be stable
 woj_sha <- "a8c562ead9c54e13a135b02e0d875ffb"
+woj_sha_old <- "b03b454aed9b4154ba50df4ba9e1143b"
 pow_sha <- "e16df1fa98c2452783ec10b0aea4b341"
 
 pol_encoding <- "Windows-1250"
@@ -65,4 +66,17 @@ woj_df <- rbindlist(lapply(
   }
 ), fill = TRUE)
 
-write.csv(woj_df, path_res_woj, row.names = FALSE)
+# Dane dla wojewodztw od poczatku pandemi
+# wykorzytsanie tylko czesci kolumn
+woj_df_old <- fread(paste0(main_url, woj_sha_old, "/data"))
+woj_df_old_sub <- woj_df_old[, c(2, 3, 5, 7, 10)]
+colnames(woj_df_old_sub) <- c("stan_rekordu_na", "liczba_przypadkow", "zgony", "liczba_ozdrowiencow", "liczba_osob_objetych_kwarantanna")
+woj_df_old_sub$liczba_przypadkow <- as.integer(woj_df_old_sub$liczba_przypadkow)
+woj_df_old_sub$stan_rekordu_na <- dmy(woj_df_old_sub$stan_rekordu_na)
+woj_df_old_sub$Date = woj_df_old_sub$stan_rekordu_na + 1
+
+woj_df$stan_rekordu_na <- as.Date(woj_df$stan_rekordu_na)
+
+woj_df_final <- rbindlist(list(woj_df_old_sub, woj_df), fill = TRUE)
+
+write.csv(woj_df_final, path_res_woj, row.names = FALSE)
