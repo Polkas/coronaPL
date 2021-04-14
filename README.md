@@ -8,6 +8,8 @@ URL GOV Description:https://www.gov.pl/web/koronawirus/metodologia
 
 **Plik `gov/govDATA.R` pozyskanie danych.**
 
+**Dane są codziennie automatycznie aktualizowane o 12:10 UTC** - pythonanywhere servers
+
 Połączone pliki z archiwum gov wraz z poprawnym formatowaniem polskich znaków.  
 **Date Wojewodztwa: `gov/data/woj_df.csv`**  
 **Date Powiaty: `gov/data/pow_df.csv`**
