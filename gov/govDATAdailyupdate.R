@@ -2,13 +2,10 @@
 # Daily Update
 # Run once per day after 12:00 GMT + 2h
 
-if (!"pacman" %in% unname(installed.packages()[, 1])) install.packages("pacman")
-pacman::p_load(
-  data.table,
-  dplyr,
-  stringr,
-  lubridate
-)
+#if (!"pacman" %in% unname(installed.packages()[, 1])) install.packages("pacman")
+library(data.table)
+library(stringr)
+library(lubridate)
 
 main_url <- "https://arcgis.com/sharing/rest/content/items/"
 # Looks to be stable
