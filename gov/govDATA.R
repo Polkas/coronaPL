@@ -69,11 +69,12 @@ woj_df <- rbindlist(lapply(
 # Dane dla wojewodztw od poczatku pandemi
 # wykorzytsanie tylko czesci kolumn
 woj_df_old <- fread(paste0(main_url, woj_sha_old, "/data"))
-woj_df_old_sub <- woj_df_old[, c(2, 3, 5, 7, 10)]
+woj_df_old_sub <- woj_df_old[, c('Data','Nowe przypadki','Zgony','Ozdrowie\xf1cy (dzienna)','Kwarantanna')]
 colnames(woj_df_old_sub) <- c("stan_rekordu_na", "liczba_przypadkow", "zgony", "liczba_ozdrowiencow", "liczba_osob_objetych_kwarantanna")
 woj_df_old_sub$liczba_przypadkow <- as.integer(woj_df_old_sub$liczba_przypadkow)
 woj_df_old_sub$stan_rekordu_na <- dmy(woj_df_old_sub$stan_rekordu_na)
 woj_df_old_sub$Date = woj_df_old_sub$stan_rekordu_na + 1
+woj_df_old_sub$wojewodztwo <- "Cały kraj"
 
 woj_df$stan_rekordu_na <- as.Date(woj_df$stan_rekordu_na)
 
