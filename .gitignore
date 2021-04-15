@@ -39,4 +39,5 @@ vignettes/*.pdf
 .Renviron
 
 # git operations
+pathbase.R
 gitoper.R
