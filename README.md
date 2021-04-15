@@ -23,6 +23,26 @@ Pliki można wykorzystać do stworzenia DB.
 Następnie dane dzienne moga byc dodawane np. poprzez skrypt uruchamiany przez `cron`.
 Przykładowy skrypt do tego celu `gov/govDATAdailyupdate.R`.
 
+### Quick Usage
+
+Usage:
+
+```r
+library(data.table)
+pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+
+woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
+woj_df_full <- woj_df[woj_df$Date >= "2020-11-21", ]
+```
+
+```python
+import pandas as pd
+pow_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+
+woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
+woj_df_full = woj_df.query("Date >= '2020-11-21'")
+```
+
 ## Spatial Analysis
 
 in development
