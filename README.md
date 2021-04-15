@@ -27,6 +27,8 @@ Przykładowy skrypt do tego celu `gov/govDATAdailyupdate.R`.
 
 Usage:
 
+**R**
+
 ```r
 library(data.table)
 pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
@@ -34,6 +36,8 @@ pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data
 woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
 woj_df_full <- woj_df[woj_df$Date >= "2020-11-21", ]
 ```
+
+**python**
 
 ```python
 import pandas as pd
