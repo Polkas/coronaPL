@@ -54,7 +54,11 @@ pow_df <- rbindlist(lapply(
   }
 ), fill = TRUE)
 
-write.csv(pow_df, path_res_pow, row.names = FALSE)
+pow_df_old <- fread("old_mrogalski/pow_df_old.csv")
+pow_df_old$Date <- as.Date(pow_df_old$Date)
+pow_df_final <- rbindlist(list(pow_df_old, pow_df), fill = TRUE)
+
+write.csv(pow_df_final, path_res_pow, row.names = FALSE)
 
 woj_df <- rbindlist(lapply(
   list.files(path_woj, pattern = "csv"),
@@ -67,18 +71,12 @@ woj_df <- rbindlist(lapply(
   }
 ), fill = TRUE)
 
-# Dane dla wojewodztw od poczatku pandemi
-# wykorzytsanie tylko czesci kolumn
-woj_df_old <- fread(paste0(main_url, woj_sha_old, "/data"))
-woj_df_old_sub <- woj_df_old[, c('Data','Nowe przypadki','Zgony','Ozdrowie\xf1cy (dzienna)','Kwarantanna')]
-colnames(woj_df_old_sub) <- c("stan_rekordu_na", "liczba_przypadkow", "zgony", "liczba_ozdrowiencow", "liczba_osob_objetych_kwarantanna")
-woj_df_old_sub$liczba_przypadkow <- as.integer(woj_df_old_sub$liczba_przypadkow)
-woj_df_old_sub$stan_rekordu_na <- dmy(woj_df_old_sub$stan_rekordu_na)
-woj_df_old_sub$Date = woj_df_old_sub$stan_rekordu_na + 1
-woj_df_old_sub$wojewodztwo <- "Cały kraj"
-
 woj_df$stan_rekordu_na <- as.Date(woj_df$stan_rekordu_na)
+# Dane dla wojewodztw od poczatku pandemi m rogalski
 
-woj_df_final <- rbindlist(list(woj_df_old_sub, woj_df), fill = TRUE)
+woj_df_old <- fread("old_mrogalski/woj_df_old.csv")
+woj_df_old$stan_rekordu_na <- as.Date(woj_df_old$stan_rekordu_na)
+woj_df_old$Date <- as.Date(woj_df_old$Date)
+woj_df_final <- rbindlist(list(woj_df_old, woj_df), fill = TRUE)
 
 write.csv(woj_df_final, path_res_woj, row.names = FALSE)
