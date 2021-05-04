@@ -1,6 +1,6 @@
 library(dplyr)
 library(tidyr)
-
+library(stringr)
 dir_path <- "./old_mrogalski"
 
 files_rogalski <- list.files(dir_path, full.names = TRUE)
@@ -217,10 +217,15 @@ wojs_index <- dd_final2$wojewodztwo %in% c(wojs2)
 pow_df_old <- dd_final2[!wojs_index, ]
 
 woj_df_old <- dd_final2[wojs_index, ]
-woj_df_old$powiat_miasto <- str_to_lower(woj_df_old$powiat_miasto)
+woj_df_old$powiat_miasto <- NULL
 woj_df_old$wojewodztwo <- str_to_lower(woj_df_old$wojewodztwo)
-woj_df_old <- rbind(woj_df_old, dd_final2[dd_final2$wojewodztwo == "Cały kraj", ])
+woj_df_old <- rbind(woj_df_old, dd_final2[dd_final2$wojewodztwo == "Cały kraj", -4])
 woj_df_old <- woj_df_old[order(woj_df_old$Date), ]
+
+pow_df_old <- pow_df_old %>% arrange(Date) %>% group_by(powiat_miasto) %>% mutate(liczba_przypadkow = c(NA, diff(liczba_przypadkow)),
+                                                                    zgony = c(NA, diff(zgony)) )
+woj_df_old <- woj_df_old %>% arrange(Date) %>% group_by(wojewodztwo) %>% mutate(liczba_przypadkow = c(NA, diff(liczba_przypadkow)),
+                                                                                zgony = c(NA, diff(zgony)) )
 
 write.csv(woj_df_old, "old_mrogalski/woj_df_old.csv", row.names = FALSE)
 write.csv(pow_df_old, "old_mrogalski/pow_df_old.csv", row.names = FALSE)
