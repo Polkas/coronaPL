@@ -60,7 +60,7 @@ pow_df$liczba_na_10_tys_mieszkancow <- as.numeric(pow_df$liczba_na_10_tys_mieszk
 # pow_df_old$Date <- as.Date(pow_df_old$Date)
 # pow_df_final <- rbindlist(list(pow_df_old, pow_df), fill = TRUE)
 
-pow_df$stan_rekordu_na <- as.Date(pow_df$stan_rekordu_na)
+pow_df$stan_rekordu_na <- pow_df$Date -1
 
 write.csv(pow_df, path_res_pow, row.names = FALSE)
 
@@ -75,7 +75,7 @@ woj_df <- rbindlist(lapply(
   }
 ), fill = TRUE)
 
-woj_df$stan_rekordu_na <- as.Date(woj_df$stan_rekordu_na)
+woj_df$stan_rekordu_na <- woj_df$Date - 1
 woj_df$liczba_na_10_tys_mieszkancow <- as.numeric(woj_df$liczba_na_10_tys_mieszkancow)
 # Dane dla wojewodztw od poczatku pandemi m rogalski
 
@@ -85,3 +85,4 @@ woj_df$liczba_na_10_tys_mieszkancow <- as.numeric(woj_df$liczba_na_10_tys_mieszk
 # woj_df_final <- rbindlist(list(woj_df_old, woj_df), fill = TRUE)
 
 write.csv(woj_df, path_res_woj, row.names = FALSE)
+

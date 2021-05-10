@@ -15,7 +15,7 @@ Połączone pliki z archiwum gov wraz z poprawnym formatowaniem polskich znaków
 **Date Powiaty: `gov/data/pow_df.csv`**
 
 Dane gov.pl dla powiatów i wojewodztw publikowane są od dnia `2020-11-23`.
-Wczesniejsze dane dla liczby przypadkow i zgonow zostaly dodane ze strony Michała Rogalskiego: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. Znajduja sie w folderze mrogalski. W Danych jest duzo bledow.
+Wczesniejsze dane dla liczby przypadkow i zgonow zostaly dodane ze strony Michała Rogalskiego: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. Znajduja sie w folderze old_mrogalski. W danych M. Rogalskiego jest duzo bledow (nie wskazuje zrodla bledow).
 
 ### Quick Usage
 
