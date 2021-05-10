@@ -227,5 +227,10 @@ pow_df_old <- pow_df_old %>% arrange(Date) %>% group_by(powiat_miasto) %>% mutat
 woj_df_old <- woj_df_old %>% arrange(Date) %>% group_by(wojewodztwo) %>% mutate(liczba_przypadkow = c(NA, diff(liczba_przypadkow)),
                                                                                 zgony = c(NA, diff(zgony)) )
 
+woj_df_old$liczba_przypadkow[woj_df_old$liczba_przypadkow < 0] <- NA
+woj_df_old$zgony[woj_df_old$zgony < 0] <- NA
+pow_df_old$liczba_przypadkow[pow_df_old$liczba_przypadkow < 0] <- NA
+pow_df_old$zgony[pow_df_old$zgony < 0] <- NA
+
 write.csv(woj_df_old, "old_mrogalski/woj_df_old.csv", row.names = FALSE)
 write.csv(pow_df_old, "old_mrogalski/pow_df_old.csv", row.names = FALSE)
