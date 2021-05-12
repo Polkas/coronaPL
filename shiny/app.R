@@ -19,9 +19,9 @@ dd <- left_join(pov_raw@data, pow_df[, c("stan_rekordu_na", "liczba_na_10_tys_mi
 # data.table to retain the order
 setDT(dd)
 # sparklines
-spark1 <- dd[, .(list(spk_chr(liczba_na_10_tys_mieszkancow, width = 120, type = "line"))), by = list(powiat_miasto, wojewodztwo)]
-spark2 <- dd[, .(list(spk_chr(liczba_przypadkow, width = 120, type = "line"))), by = list(powiat_miasto, wojewodztwo)]
-spark3 <- dd[, .(list(spk_chr(zgony, width = 120, type = "line"))), by = list(powiat_miasto, wojewodztwo)]
+spark1 <- dd[, .(list(spk_chr(liczba_na_10_tys_mieszkancow, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
+spark2 <- dd[, .(list(spk_chr(liczba_przypadkow, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
+spark3 <- dd[, .(list(spk_chr(zgony, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
 
 ecdf_fun <- function(x, perc) ecdf(x)(perc)
 # Crucial only local values
@@ -69,18 +69,18 @@ server <- function(input, output, session) {
         ),
         popup = paste0(
           "<h4>", pov_raw@data$powiat_miasto, "</h4>",
-          pov_raw@data$stan_rekordu_na, "<br/>",
-          "Lokalne Ryzyko* - (0 - great; 100 - worst)", "<br/>",
-          "<span style='font-size:20px;color:", scales::seq_gradient_pal("green","red")(risk$V1),";'>" , round(100 * unlist(risk$V1)), "%", "</span><br/>",
+          "<strong>", pov_raw@data$stan_rekordu_na, "</strong><br/>",
+          "Lokalne Ryzyko* - (0 - good; 100 - bad)", "<br/>",
+          "<span style='font-size:20px;color:", scales::seq_gradient_pal("green","red")(risk$V1),";'><strong>" , round(100 * unlist(risk$V1)), "%", "</strong></span><br/>",
           "Zakażenia na 10 tys: ",
           "<strong>", pov_raw@data$liczba_na_10_tys_mieszkancow, "</strong>", "<br/>",
           "Zgony: ",
           "<strong>", pov_raw@data$zgony, "</strong>", "<br>",
           "<br>",
-          "Od 2020-11-24", "<br>",
-          "Przypadki na 10 tys.:", "<br>",
+          "<strong>2020-11-24 - ", pov_raw@data$stan_rekordu_na,"</strong>", "<br>",
+          "Zakażenia na 10 tys.:", "<br>",
           spark1$V1, "<br>",
-          "Przypadki:", "<br>",
+          "Zakażenia:", "<br>",
           spark2$V1, "<br>",
           "Zgony:", "<br>",
           spark3$V1, "<br>",
