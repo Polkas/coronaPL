@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyalert)
 library(miniUI)
 library(leaflet)
 library(ggplot2)
@@ -29,14 +30,24 @@ risk <- dd[, .(list(ecdf_fun(liczba_na_10_tys_mieszkancow, tail(liczba_na_10_tys
 
 pov_raw@data <- left_join(pov_raw@data, pow_df[pow_df$stan_rekordu_na == tail(pow_df$stan_rekordu_na, 1), c("stan_rekordu_na", "liczba_na_10_tys_mieszkancow", "wojewodztwo", "powiat_miasto", "liczba_przypadkow", "zgony")], by = c("wojewodztwo", "powiat_miasto"))
 
+info_text <- "Aplikacja moblina do monitorowania pandemi koronawirusa w konkretnym powiecie.
+Lokalne ryzyko szacowane jest jako kwantyl z rozkładu empirycznego wartości zakażeń na 10tys. mieszkańców w konkretnym powiecie.
+Statystyka nie powinna wpływać na zachowania.
+Wszelkie środki ostrożności są nadal konieczne."
+
 ui <- miniPage(
+  useShinyalert(),
   gadgetTitleBar("Corona19 Lokalnie",
     left = NULL,
     right = miniTitleBarButton("done", "Done", primary = TRUE)
   ),
   miniContentPanel(
     padding = 0,
-    leafletOutput("c19", height = "100%")
+    leafletOutput("c19", height = "100%"),
+    actionButton(style = "position:absolute;bottom:20px;left:20px;",
+                inputId = "info_button",
+                label="",
+                icon = icon("info-circle"))
   )
 )
 
@@ -84,8 +95,7 @@ server <- function(input, output, session) {
           spark2$V1, "<br>",
           "Zgony:", "<br>",
           spark3$V1, "<br>",
-          "<p style='line-height:0.8;font-size:9px;'>*Statystyka nie powinna wpływać na zachowania.", "<br>",
-          "  Wszelkie środki ostrożności są nadal konieczne.</p>"
+          "<p style='font-size:9px;'>*Statystyka nie powinna wpływać na zachowania.</p>"
         )
       ) %>%
       addLegend("bottomright",
@@ -104,6 +114,11 @@ server <- function(input, output, session) {
   observeEvent(input$done, {
     stopApp(TRUE)
   })
+
+  observeEvent(input$info_button, {
+                # Show a simple modal
+    shinyalert(text=info_text, title = "Info Page")
+    })
 }
 
 shinyApp(ui, server)
