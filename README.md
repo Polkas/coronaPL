@@ -50,4 +50,5 @@ Przykład (zgony na COVID19 na przestrzeni powiatów oraz czasu):
 
 ## shiny App 
 
-in development
+check the /shiny directory.
+URL: https://polkas.shinyapps.io/c19PL/
