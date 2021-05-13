@@ -16,7 +16,16 @@ pow_df <- pow_df[pow_df$powiat_miasto != "Cały kraj", ]
 
 pov_raw <- readRDS("pov_small.RDS")
 
-dd <- left_join(pov_raw@data, pow_df[, c("stan_rekordu_na", "liczba_na_10_tys_mieszkancow", "wojewodztwo", "powiat_miasto", "liczba_przypadkow", "zgony")], by = c("wojewodztwo", "powiat_miasto"))
+base_cols <- c("stan_rekordu_na",
+               "liczba_na_10_tys_mieszkancow",
+               "wojewodztwo",
+               "powiat_miasto",
+               "liczba_przypadkow",
+               "zgony")
+
+dd <- left_join(pov_raw@data,
+                pow_df[, ..base_cols],
+                by = c("wojewodztwo", "powiat_miasto"))
 # data.table to retain the order
 setDT(dd)
 # sparklines
@@ -28,12 +37,16 @@ ecdf_fun <- function(x, perc) ecdf(x)(perc)
 # Crucial only local values
 risk <- dd[, .(list(ecdf_fun(liczba_na_10_tys_mieszkancow, tail(liczba_na_10_tys_mieszkancow, 1)))), by = list(powiat_miasto, wojewodztwo)]
 last_day <- tail(pow_df$stan_rekordu_na, 1)
-pov_raw@data <- left_join(pov_raw@data, pow_df[pow_df$stan_rekordu_na == last_day, c("stan_rekordu_na", "liczba_na_10_tys_mieszkancow", "wojewodztwo", "powiat_miasto", "liczba_przypadkow", "zgony")], by = c("wojewodztwo", "powiat_miasto"))
+pov_raw@data <- left_join(pov_raw@data, pow_df[pow_df$stan_rekordu_na == last_day, ..base_cols], by = c("wojewodztwo", "powiat_miasto"))
 
 info_text <- "Aplikacja moblina do monitorowania pandemi koronawirusa w konkretnym powiecie.
 Lokalne ryzyko szacowane jest jako kwantyl z rozkładu empirycznego wartości zakażeń na 10tys. mieszkańców w konkretnym powiecie.
 Oszacowana statystyka nie powinna wpływać na zachowania.
 Wszelkie środki ostrożności są nadal konieczne."
+
+#exponential and historical max
+bins <- round(c(0, 0.5, exp(seq(log(1), log(max(pow_df$liczba_na_10_tys_mieszkancow, na.rm = TRUE)), length = 5))), 2)
+pal <- colorBin("YlOrRd", domain = range(pow_df$liczba_na_10_tys_mieszkancow), bins = bins)
 
 ui <- miniPage(
   useShinyalert(),
@@ -53,12 +66,10 @@ ui <- miniPage(
 
 server <- function(input, output, session) {
   output$c19 <- renderLeaflet({
-    #exponential
-    bins <- round(c(0, 0.5, exp(seq(log(1), log(max(pow_df$liczba_na_10_tys_mieszkancow, na.rm = TRUE)), length = 5))), 2)
-    pal <- colorBin("YlOrRd", domain = range(pow_df$liczba_na_10_tys_mieszkancow), bins = bins)
 
     ll <- leaflet() %>%
-      addProviderTiles("CartoDB.PositronNoLabels",
+      addProviderTiles(
+        "CartoDB.PositronNoLabels",
         options = providerTileOptions(minZoom = 6, maxZoom = 8)
       ) %>%
       setView(lng = 20, lat = 52, zoom = 6) %>%
@@ -116,9 +127,8 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$info_button, {
-                # Show a simple modal
     shinyalert(text=info_text, title = "Info Page")
-    })
+  })
 }
 
 shinyApp(ui, server)
