@@ -18,8 +18,12 @@ pow_sha <- "e16df1fa98c2452783ec10b0aea4b341"
 pol_encoding <- "Windows-1250"
 path_pow <- "gov/raw_data/pow"
 path_woj <- "gov/raw_data/woj"
-path_res_pow <- "gov/data/pow_df.csv"
+
+path_res_pow1 <- "gov/data/pow_df.csv"
+path_res_pow2 <- "gov/data/pow_df_full.csv"
+
 path_res_woj <- "gov/data/woj_df.csv"
+
 path_res <- "gov/data"
 tempzip <- tempfile(fileext = ".zip")
 all_id <- "Cały kraj"
@@ -62,7 +66,14 @@ pow_df$liczba_na_10_tys_mieszkancow <- as.numeric(pow_df$liczba_na_10_tys_mieszk
 
 pow_df$stan_rekordu_na <- pow_df$Date -1
 
-write.csv(pow_df, path_res_pow, row.names = FALSE)
+write.csv(pow_df[, c("wojewodztwo",
+                     "powiat_miasto",
+                     "liczba_przypadkow",
+                     "liczba_na_10_tys_mieszkancow",
+                     "zgony",
+                     "stan_rekordu_na",
+                     "Date")], path_res_pow1, row.names = FALSE)
+write.csv(pow_df, path_res_pow2, row.names = FALSE)
 
 woj_df <- rbindlist(lapply(
   list.files(path_woj, pattern = "csv"),
@@ -85,4 +96,3 @@ woj_df$liczba_na_10_tys_mieszkancow <- as.numeric(woj_df$liczba_na_10_tys_mieszk
 # woj_df_final <- rbindlist(list(woj_df_old, woj_df), fill = TRUE)
 
 write.csv(woj_df, path_res_woj, row.names = FALSE)
-

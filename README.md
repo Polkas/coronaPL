@@ -42,6 +42,7 @@ woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data
 ```python
 import pandas as pd
 pow_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+pow_df_full = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv")
 
 woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
 ```
