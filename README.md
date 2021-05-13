@@ -1,21 +1,28 @@
 # coronaPL
 corona virus data from Polish government and more.
 
-## Dane COVID19 GOV
+## shiny App 
+
+check the /shiny directory.
+URL: https://polkas.shinyapps.io/c19PL/
+
+## Data COVID19 GOV
 
 URL GOV: https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2  
 URL GOV Description:https://www.gov.pl/web/koronawirus/metodologia  
 
-**Plik `gov/govDATA.R` pozyskanie danych.**
+**File `gov/govDATA.R` data extractionh.**
 
-**Dane są codziennie automatycznie aktualizowane o 10:10 UTC** - pythonanywhere.com servers
+**Everyday update of the data at 10:10 UTC** - using pythonanywhere.com servers
 
-Połączone pliki z archiwum gov wraz z poprawnym formatowaniem polskich znaków.  
-**Date Wojewodztwa: `gov/data/woj_df.csv`**  
-**Date Powiaty: `gov/data/pow_df.csv`**
+Merged data with proper formatting:
+**Data Wojewodztwa: `gov/data/woj_df.csv`**  
+**Data Powiaty: `gov/data/pow_df.csv`**
 
-Dane gov.pl dla powiatów i wojewodztw publikowane są od dnia `2020-11-23`.
-Wczesniejsze dane dla liczby przypadkow i zgonow zostaly dodane ze strony Michała Rogalskiego: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. Znajduja sie w folderze old_mrogalski. W danych M. Rogalskiego jest duzo bledow (nie wskazuje zrodla bledow).
+gov.pl data are published since `2020-11-23`.
+
+For older data you might visit Michała Rogalski GS: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. 
+Be carefull as this data contains some bugs.
 
 ### Quick Usage
 
@@ -41,14 +48,8 @@ woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov
 
 ## Spatial Analysis
 
-in development
+In development
 
-Przykład (zgony na COVID19 na przestrzeni powiatów oraz czasu):  
+Example (deaths on COVID19 across time and districts):  
 ![](spatial/images/zgonyPL.gif)
-
-*Daty na dzień publikacji
-
-## shiny App 
-
-check the /shiny directory.
-URL: https://polkas.shinyapps.io/c19PL/
+* Dates on publication day
