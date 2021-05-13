@@ -21,8 +21,8 @@ Merged data with proper formatting:
 
 gov.pl data are published since `2020-11-23`.
 
-For older data you might visit Michała Rogalski GS: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. 
-Be carefull as this data contains some bugs.
+Older data is available e.g. Michała Rogalski GS: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. 
+Be careful as this data contains possible bugs.
 
 ### Quick Usage
 
@@ -33,6 +33,7 @@ Usage:
 ```r
 library(data.table)
 pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+pow_df_full <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv")
 
 woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
 ```
