@@ -27,12 +27,12 @@ spark3 <- dd[, .(list(spk_chr(zgony, width = "100%", type = "line"))), by = list
 ecdf_fun <- function(x, perc) ecdf(x)(perc)
 # Crucial only local values
 risk <- dd[, .(list(ecdf_fun(liczba_na_10_tys_mieszkancow, tail(liczba_na_10_tys_mieszkancow, 1)))), by = list(powiat_miasto, wojewodztwo)]
-
-pov_raw@data <- left_join(pov_raw@data, pow_df[pow_df$stan_rekordu_na == tail(pow_df$stan_rekordu_na, 1), c("stan_rekordu_na", "liczba_na_10_tys_mieszkancow", "wojewodztwo", "powiat_miasto", "liczba_przypadkow", "zgony")], by = c("wojewodztwo", "powiat_miasto"))
+last_day <- tail(pow_df$stan_rekordu_na, 1)
+pov_raw@data <- left_join(pov_raw@data, pow_df[pow_df$stan_rekordu_na == last_day, c("stan_rekordu_na", "liczba_na_10_tys_mieszkancow", "wojewodztwo", "powiat_miasto", "liczba_przypadkow", "zgony")], by = c("wojewodztwo", "powiat_miasto"))
 
 info_text <- "Aplikacja moblina do monitorowania pandemi koronawirusa w konkretnym powiecie.
 Lokalne ryzyko szacowane jest jako kwantyl z rozkładu empirycznego wartości zakażeń na 10tys. mieszkańców w konkretnym powiecie.
-Statystyka nie powinna wpływać na zachowania.
+Oszacowana statystyka nie powinna wpływać na zachowania.
 Wszelkie środki ostrożności są nadal konieczne."
 
 ui <- miniPage(
@@ -80,7 +80,7 @@ server <- function(input, output, session) {
         ),
         popup = paste0(
           "<h4>", pov_raw@data$powiat_miasto, "</h4>",
-          "<strong>", pov_raw@data$stan_rekordu_na, "</strong><br/>",
+          "<strong>", last_day, "</strong><br/>",
           "Lokalne Ryzyko* - (0 - good; 100 - bad)", "<br/>",
           "<span style='font-size:20px;color:", scales::seq_gradient_pal("green","red")(risk$V1),";'><strong>" , round(100 * unlist(risk$V1)), "%", "</strong></span><br/>",
           "Zakażenia na 10 tys: ",
@@ -88,14 +88,14 @@ server <- function(input, output, session) {
           "Zgony: ",
           "<strong>", pov_raw@data$zgony, "</strong>", "<br>",
           "<br>",
-          "<strong>2020-11-24 - ", pov_raw@data$stan_rekordu_na,"</strong>", "<br>",
+          "<strong>2020-11-24 - ", last_day,"</strong>", "<br>",
           "Zakażenia na 10 tys.:", "<br>",
           spark1$V1, "<br>",
           "Zakażenia:", "<br>",
           spark2$V1, "<br>",
           "Zgony:", "<br>",
           spark3$V1, "<br>",
-          "<p style='font-size:9px;'>*Statystyka nie powinna wpływać na zachowania.</p>"
+          "<p style='font-size:9px;'>*Kryterium nie powinno wpływać na zachowania.</p>"
         )
       ) %>%
       addLegend("bottomright",
