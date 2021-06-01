@@ -7,6 +7,10 @@ library(data.table)
 library(stringr)
 library(lubridate)
 
+if (Sys.getenv("PYTHONANYWHERE_SITE") == "www.pythonanywhere.com") {
+  setwd("/home/polkas/Rdir/coronaPL")
+}
+
 main_url <- "https://arcgis.com/sharing/rest/content/items/"
 # Looks to be stable
 woj_sha <- "a8c562ead9c54e13a135b02e0d875ffb"
