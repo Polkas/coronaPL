@@ -3,8 +3,11 @@ corona virus data from Polish government and more.
 
 ## shiny App 
 
-check the /shiny directory.
+check the /shiny directory.  
 URL: https://polkas.shinyapps.io/c19PL/
+
+The app is targeting Polish people so it is written with polish descriptions. The main objective was to develop a mobile app for everyday monitoring of the local coronavirus pandemic stage in Poland. Some of the used packages: leaflet, sparkline, data.table and miniUI.
+I decided to build a mobile phone suited app to check the coronavirus pandemic stage in the specific local area. People were less mobile last time so they should mostly care about the pandemic stage in their local area. I was inspired by the apps which offer similar functionality although for quality of air. The main objective was to make the app useful for everyday usage so as to be suited for mobile phones. The local risk is estimated as a quantile from the empirical distribution of the infection value per 10,000. residents in a specific district.
 
 ## Data COVID19 GOV
 
