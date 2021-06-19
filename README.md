@@ -12,11 +12,11 @@ I decided to build a mobile phone suited app to check the coronavirus pandemic s
 ## Data COVID19 GOV
 
 URL GOV: https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2  
-URL GOV Description:https://www.gov.pl/web/koronawirus/metodologia  
+URL GOV Description: https://www.gov.pl/web/koronawirus/metodologia  
 
-**File `gov/govDATA.R` data extractionh.**
+**File `gov/govDATA.R` data extraction.**
 
-**Everyday update of the data at 10:10 UTC** - using pythonanywhere.com servers
+**Everyday update of the data around 09:00 UTC** - using pythonanywhere.com servers
 
 Merged data with proper formatting:
 **Data Wojewodztwa: `gov/data/woj_df.csv`**  
