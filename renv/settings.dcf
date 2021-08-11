@@ -1,6 +1,6 @@
 external.libraries:
 ignored.packages:
-package.dependency.fields: Imports, Depends, LinkingTo
+package.dependency.fields: coronaPL
 r.version:
 snapshot.type: implicit
 use.cache: TRUE

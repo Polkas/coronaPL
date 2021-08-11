@@ -1,4 +1,5 @@
 library(shiny)
+library(shinydashboard)
 library(shinyalert)
 library(miniUI)
 library(leaflet)
@@ -12,6 +13,8 @@ library(htmlwidgets)
 library(scales)
 
 pow_df <- fread("http://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+pow_df_all <- pow_df[pow_df$powiat_miasto == "Cały kraj", ]
+pow_df_all_last <- pow_df_all[pow_df_all$stan_rekordu_na == tail(pow_df_all$stan_rekordu_na, 1), ]
 pow_df <- pow_df[pow_df$powiat_miasto != "Cały kraj", ]
 
 pov_raw <- readRDS("pov_small.RDS")
@@ -60,7 +63,9 @@ ui <- miniPage(
     actionButton(style = "position:absolute;bottom:20px;left:20px;",
                 inputId = "info_button",
                 label="",
-                icon = icon("info-circle"))
+                icon = icon("info-circle")),
+    tags$div(style = "position:absolute;top:20px;right:20px;background-color:white",
+             uiOutput("summary"))
   )
 )
 
@@ -94,6 +99,8 @@ server <- function(input, output, session) {
           "<strong>", last_day, "</strong><br/>",
           "Lokalne Ryzyko* - (0 - good; 100 - bad)", "<br/>",
           "<span style='font-size:20px;color:", scales::seq_gradient_pal("green","red")(risk$V1),";'><strong>" , round(100 * unlist(risk$V1)), "%", "</strong></span><br/>",
+          "Zakażenia: ",
+          "<strong>", pov_raw@data$liczba_przypadkow, "</strong>", "<br/>",
           "Zakażenia na 10 tys: ",
           "<strong>", pov_raw@data$liczba_na_10_tys_mieszkancow, "</strong>", "<br/>",
           "Zgony: ",
@@ -129,6 +136,14 @@ server <- function(input, output, session) {
   observeEvent(input$info_button, {
     shinyalert(text=info_text, title = "Info Page")
   })
+
+  output$summary <- renderUI({tags$div(class = "info legend leaflet-control",
+                                       HTML(paste0("<strong>", pow_df_all_last$stan_rekordu_na, "</strong><br>",
+                                       "Zakazenia: ", pow_df_all_last$liczba_przypadkow, "<br>"
+                                       )),
+                                       sparkline::sparkline(pow_df_all$liczba_przypadkow, width = "100px"))
+    })
+
 }
 
 shinyApp(ui, server)
