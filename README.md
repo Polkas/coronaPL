@@ -11,7 +11,8 @@ I decided to build a mobile phone suited app to check the coronavirus pandemic s
 
 ## Data COVID19 GOV
 
-URL GOV: https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2  
+URL GOV: https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2
+  
 URL GOV Description: https://www.gov.pl/web/koronawirus/metodologia  
 
 **File `gov/govDATA.R` data extraction.**
