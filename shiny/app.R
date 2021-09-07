@@ -11,9 +11,11 @@ library(sparkline)
 library(htmltools)
 library(htmlwidgets)
 library(scales)
+library(zoo)
 
 pow_df <- fread("http://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
 pow_df_all <- pow_df[pow_df$powiat_miasto == "Cały kraj", ]
+pow_df_all_14 <- pow_df[pow_df$powiat_miasto == "Cały kraj" & pow_df$stan_rekordu_na >= (Sys.Date() - 15), ]
 pow_df_all_last <- pow_df_all[pow_df_all$stan_rekordu_na == tail(pow_df_all$stan_rekordu_na, 1), ]
 pow_df <- pow_df[pow_df$powiat_miasto != "Cały kraj", ]
 
@@ -32,18 +34,19 @@ dd <- left_join(pov_raw@data,
 # data.table to retain the order
 setDT(dd)
 # sparklines
-spark1 <- dd[, .(list(spk_chr(liczba_na_10_tys_mieszkancow, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
-spark2 <- dd[, .(list(spk_chr(liczba_przypadkow, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
-spark3 <- dd[, .(list(spk_chr(zgony, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
+last_14 <- dd$stan_rekordu_na >= (Sys.Date() - 15)
+spark1 <- dd[last_14, .(list(spk_chr(liczba_na_10_tys_mieszkancow, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
+spark2 <- dd[last_14, .(list(spk_chr(liczba_przypadkow, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
+spark3 <- dd[last_14, .(list(spk_chr(zgony, width = "100%", type = "line"))), by = list(powiat_miasto, wojewodztwo)]
 
-ecdf_fun <- function(x, perc) ecdf(x)(perc)
+ecdf_fun <- function(x, perc) mean(x < perc, na.rm = TRUE)
 # Crucial only local values
-risk <- dd[, .(list(ecdf_fun(liczba_na_10_tys_mieszkancow, tail(liczba_na_10_tys_mieszkancow, 1)))), by = list(powiat_miasto, wojewodztwo)]
+risk <- dd[, .(list(ecdf_fun(liczba_na_10_tys_mieszkancow[seq(length(liczba_na_10_tys_mieszkancow), 1, -7)], tail(liczba_na_10_tys_mieszkancow, 1)))), by = list(powiat_miasto, wojewodztwo)]
 last_day <- tail(pow_df$stan_rekordu_na, 1)
-pov_raw@data <- left_join(pov_raw@data, pow_df[pow_df$stan_rekordu_na == last_day, ..base_cols], by = c("wojewodztwo", "powiat_miasto"))
+pov_raw@data <- dd[dd$stan_rekordu_na == last_day, ]
 
 info_text <- "Aplikacja moblina do monitorowania pandemi koronawirusa w konkretnym powiecie.
-Lokalne ryzyko szacowane jest jako kwantyl z rozkładu empirycznego wartości zakażeń na 10tys. mieszkańców w konkretnym powiecie.
+Lokalne ryzyko szacowane jest jako kwantyl z rozkładu empirycznego wartości zakażeń na 10tys. mieszkańców w konkretnym powiecie i konkretnego dnia tygodnia, analizujemy dane z konkretnego dnia tygodnia.
 Oszacowana statystyka nie powinna wpływać na zachowania.
 Wszelkie środki ostrożności są nadal konieczne."
 
@@ -64,7 +67,7 @@ ui <- miniPage(
                 inputId = "info_button",
                 label="",
                 icon = icon("info-circle")),
-    tags$div(style = "position:absolute;top:20px;right:20px;background-color:white",
+    tags$div(style = "position:absolute;top:20px;right:40px;background-color:white",
              uiOutput("summary"))
   )
 )
@@ -106,7 +109,7 @@ server <- function(input, output, session) {
           "Zgony: ",
           "<strong>", pov_raw@data$zgony, "</strong>", "<br>",
           "<br>",
-          "<strong>2020-11-24 - ", last_day,"</strong>", "<br>",
+          "<strong>", last_day - 15, "- ", last_day,"</strong>", "<br>",
           "Zakażenia na 10 tys.:", "<br>",
           spark1$V1, "<br>",
           "Zakażenia:", "<br>",
@@ -141,7 +144,7 @@ server <- function(input, output, session) {
                                        HTML(paste0("<strong>", pow_df_all_last$stan_rekordu_na, "</strong><br>",
                                        "Zakazenia: ", pow_df_all_last$liczba_przypadkow, "<br>"
                                        )),
-                                       sparkline::sparkline(pow_df_all$liczba_przypadkow, width = "100px"))
+                                       sparkline::sparkline(pow_df_all_14$liczba_przypadkow, width = "100px"))
     })
 
 }
