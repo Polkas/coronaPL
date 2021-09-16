@@ -57,7 +57,7 @@ Wszelkie środki ostrożności są nadal konieczne."
 bins <- round(c(0, 0.5, exp(seq(log(1), log(max(pow_df$liczba_na_10_tys_mieszkancow, na.rm = TRUE)), length = 5))), 2)
 pal <- colorBin("YlOrRd", domain = range(pow_df$liczba_na_10_tys_mieszkancow), bins = bins)
 
-stolice <- structure(list(Miasto = c(
+stolice = c(
   "Białystok",
   "Bydgoszcz",
   "Gdańsk",
@@ -76,48 +76,9 @@ stolice <- structure(list(Miasto = c(
   "Warszawa",
   "Wrocław",
   "Zielona Góra"
-), longitude = c(
-  23.16433,
-  18.00762,
-  18.64637,
-  15.22878,
-  19.02754,
-  20.62752,
-  19.93658,
-  22.56667,
-  19.46667,
-  20.49416,
-  17.92533,
-  16.92993,
-  21.99901,
-  14.55302,
-  18.59814,
-  21.01178,
-  17.03333,
-  15.50643
-), latitude = c(
-  53.13333,
-  53.1235,
-  54.35205,
-  52.73679,
-  50.25841,
-  50.87033,
-  50.06143,
-  51.25,
-  51.75,
-  53.77995,
-  50.67211,
-  52.40692,
-  50.04132,
-  53.42894,
-  53.01375,
-  52.22977,
-  51.1,
-  51.93548
-)), row.names = c(
-  NA,
-  -18L
-), class = "data.frame")
+)
+
+pov_raw@data$Miasto <- ifelse(pov_raw@data$powiat_miasto %in% stolice, pov_raw@data$powiat_miasto, "")
 
 ui <- miniPage(
   useShinyalert(),
@@ -146,7 +107,7 @@ server <- function(input, output, session) {
         "CartoDB.PositronNoLabels",
         options = providerTileOptions(minZoom = 6, maxZoom = 8)
       ) %>%
-      setView(lng = 20, lat = 52, zoom = 6) %>%
+      setView(lng = 20, lat = 52, zoom = 6)  %>%
       addPolygons(
         data = pov_raw,
         fillColor = ~ pal(liczba_na_10_tys_mieszkancow),
@@ -163,6 +124,8 @@ server <- function(input, output, session) {
           fillOpacity = 0.7,
           bringToFront = TRUE
         ),
+        label = pov_raw@data$Miasto,
+        labelOptions = labelOptions(noHide = T, direction = 'center', textOnly = T),
         popup = paste0(
           "<h4>", pov_raw@data$powiat_miasto, "</h4>",
           "<strong>", last_day, "</strong><br/>",
@@ -188,11 +151,7 @@ server <- function(input, output, session) {
       addLegend("bottomright",
                 pal = pal, values = pov_raw@data$liczba_na_10_tys_mieszkancow,
                 title = htmltools::HTML("Zakażenia na 10 tys.<br/> mieszkancow")
-      ) %>%
-      addLabelOnlyMarkers(lng = stolice$longitude,
-                          lat = stolice$latitude,
-                          label = stolice$Miasto,
-                          labelOptions = labelOptions(noHide = T, direction = 'center', textOnly = T))
+      )
 
     ll$dependencies <- c(ll$dependencies, sparkline:::spk_dependencies())
 
