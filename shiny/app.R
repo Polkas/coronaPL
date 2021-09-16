@@ -41,12 +41,15 @@ spark3 <- dd[last_14, .(list(spk_chr(zgony, width = "100%", type = "line"))), by
 
 ecdf_fun <- function(x, perc) mean(x < perc, na.rm = TRUE)
 # Crucial only local values
-risk <- dd[, .(list(ecdf_fun(liczba_na_10_tys_mieszkancow[seq(length(liczba_na_10_tys_mieszkancow), 1, -7)], tail(liczba_na_10_tys_mieszkancow, 1)))), by = list(powiat_miasto, wojewodztwo)]
+risk <- dd[, .(list(ecdf_fun(zoo::rollapply(liczba_na_10_tys_mieszkancow[seq(length(liczba_na_10_tys_mieszkancow), 1, -7)], width = 3, FUN = mean, na.rm = TRUE, align = "right", fill = NA),
+                             mean(liczba_na_10_tys_mieszkancow[length(liczba_na_10_tys_mieszkancow) - c(0, 7, 14)], na.rm = T)))),
+           by = list(powiat_miasto, wojewodztwo)]
 last_day <- tail(pow_df$stan_rekordu_na, 1)
 pov_raw@data <- dd[dd$stan_rekordu_na == last_day, ]
 
 info_text <- "Aplikacja moblina do monitorowania pandemi koronawirusa w konkretnym powiecie.
 Lokalne ryzyko szacowane jest jako kwantyl z rozkładu empirycznego wartości zakażeń na 10tys. mieszkańców w konkretnym powiecie i konkretnego dnia tygodnia, analizujemy dane z konkretnego dnia tygodnia.
+Dokładnie brane sa pod wage średnie z 3 obserwacji dla danego dnia tygodnia.
 Oszacowana statystyka nie powinna wpływać na zachowania.
 Wszelkie środki ostrożności są nadal konieczne."
 
@@ -54,25 +57,88 @@ Wszelkie środki ostrożności są nadal konieczne."
 bins <- round(c(0, 0.5, exp(seq(log(1), log(max(pow_df$liczba_na_10_tys_mieszkancow, na.rm = TRUE)), length = 5))), 2)
 pal <- colorBin("YlOrRd", domain = range(pow_df$liczba_na_10_tys_mieszkancow), bins = bins)
 
+stolice <- structure(list(Miasto = c(
+  "Białystok",
+  "Bydgoszcz",
+  "Gdańsk",
+  "Gorzów Wielkopolski",
+  "Katowice",
+  "Kielce",
+  "Kraków",
+  "Lublin",
+  "Łódź",
+  "Olsztyn",
+  "Opole",
+  "Poznań",
+  "Rzeszów",
+  "Szczecin",
+  "Toruń",
+  "Warszawa",
+  "Wrocław",
+  "Zielona Góra"
+), longitude = c(
+  23.16433,
+  18.00762,
+  18.64637,
+  15.22878,
+  19.02754,
+  20.62752,
+  19.93658,
+  22.56667,
+  19.46667,
+  20.49416,
+  17.92533,
+  16.92993,
+  21.99901,
+  14.55302,
+  18.59814,
+  21.01178,
+  17.03333,
+  15.50643
+), latitude = c(
+  53.13333,
+  53.1235,
+  54.35205,
+  52.73679,
+  50.25841,
+  50.87033,
+  50.06143,
+  51.25,
+  51.75,
+  53.77995,
+  50.67211,
+  52.40692,
+  50.04132,
+  53.42894,
+  53.01375,
+  52.22977,
+  51.1,
+  51.93548
+)), row.names = c(
+  NA,
+  -18L
+), class = "data.frame")
+
 ui <- miniPage(
   useShinyalert(),
   gadgetTitleBar("Corona19 Lokalnie",
-    left = NULL,
-    right = miniTitleBarButton("done", "Done", primary = TRUE)
+                 left = NULL,
+                 right = miniTitleBarButton("done", "Done", primary = TRUE)
   ),
   miniContentPanel(
     padding = 0,
     leafletOutput("c19", height = "100%"),
     actionButton(style = "position:absolute;bottom:20px;left:20px;",
-                inputId = "info_button",
-                label="",
-                icon = icon("info-circle")),
+                 inputId = "info_button",
+                 label="",
+                 icon = icon("info-circle")),
     tags$div(style = "position:absolute;top:20px;right:40px;background-color:white",
              uiOutput("summary"))
   )
 )
 
 server <- function(input, output, session) {
+
   output$c19 <- renderLeaflet({
 
     ll <- leaflet() %>%
@@ -120,9 +186,13 @@ server <- function(input, output, session) {
         )
       ) %>%
       addLegend("bottomright",
-        pal = pal, values = pov_raw@data$liczba_na_10_tys_mieszkancow,
-        title = htmltools::HTML("Zakażenia na 10 tys.<br/> mieszkancow")
-      )
+                pal = pal, values = pov_raw@data$liczba_na_10_tys_mieszkancow,
+                title = htmltools::HTML("Zakażenia na 10 tys.<br/> mieszkancow")
+      ) %>%
+      addLabelOnlyMarkers(lng = stolice$longitude,
+                          lat = stolice$latitude,
+                          label = stolice$Miasto,
+                          labelOptions = labelOptions(noHide = T, direction = 'center', textOnly = T))
 
     ll$dependencies <- c(ll$dependencies, sparkline:::spk_dependencies())
 
@@ -142,10 +212,10 @@ server <- function(input, output, session) {
 
   output$summary <- renderUI({tags$div(class = "info legend leaflet-control",
                                        HTML(paste0("<strong>", pow_df_all_last$stan_rekordu_na, "</strong><br>",
-                                       "Zakazenia: ", pow_df_all_last$liczba_przypadkow, "<br>"
+                                                   "Zakazenia: ", pow_df_all_last$liczba_przypadkow, "<br>"
                                        )),
                                        sparkline::sparkline(pow_df_all_14$liczba_przypadkow, width = "100px"))
-    })
+  })
 
 }
 
