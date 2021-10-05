@@ -1,0 +1,19 @@
+"wojewodztwo","liczba_szczepien_ogolnie","liczba_szczepien_dziennie","dawka_2_ogolem","dawka_2_dziennie","teryt","name","Date","stan_rekordu_na"
+"inne_puste_woj",4,0,0,0,"t0","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"dolnośląskie",3018316,2827,1397395,388,"t02","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"kujawsko-pomorskie",2032273,2014,937353,324,"t04","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"lubelskie",1738809,1783,804933,249,"t06","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"lubuskie",1036592,860,476892,114,"t08","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"łódzkie",2473333,1362,1156451,253,"t10","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"małopolskie",3200606,2413,1488653,396,"t12","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"mazowieckie",5901073,4878,2745862,798,"t14","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"opolskie",884671,512,414128,76,"t16","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"podkarpackie",1618109,1290,750241,239,"t18","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"podlaskie",1074952,739,501535,83,"t20","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"pomorskie",2479011,2405,1153349,319,"t22","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"śląskie",4485983,3159,2083857,611,"t24","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"świętokrzyskie",1084466,568,502280,146,"t26","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"warmińsko-mazurskie",1294209,1103,599782,177,"t28","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"wielkopolskie",3602088,2327,1688957,442,"t30","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"zachodniopomorskie",1741766,1720,801479,243,"t32","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04
+"cały kraj",37666261,29960,17503147,4858,"t00","20211005060000_rap_rcb_woj_eksport_vac.csv",2021-10-05,2021-10-04

@@ -27,6 +27,9 @@ gov.pl data are published since `2020-11-23`.
 
 Older data is available e.g. Michała Rogalski GS: https://docs.google.com/spreadsheets/d/1Tv6jKMUYdK6ws6SxxAsHVxZbglZfisC8x_HZ1jacmBM/edit#gid=1169869581. 
 Be careful as this data contains possible bugs.
+Vaccination Data: https://docs.google.com/spreadsheets/d/19DqluO7mmKrheqBDRD2ZFM2ZLSi4YTW2nwLbPHkiTYU
+
+GOV vaccination Data: https://www.gov.pl/web/szczepimysie/raport-szczepien-przeciwko-covid-19
 
 ### Quick Usage
 
