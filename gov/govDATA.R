@@ -46,21 +46,31 @@ pow_daily_hash <- "6ff45d6b5b224632a672e764e04e8394"
 
 woj_c_name <- sprintf("gov/raw_data/woj/%s060000_rap_rcb_woj_eksport.csv", format(Sys.Date(), "%Y%m%d"))
 
-if (! Sys.Date() %in% as.Date(substr(list.files("gov/raw_data/woj"), 1, 8), "%Y%m%d")) {
-  download.file(sprintf("%s%s/data", main_url, woj_daily_hash), woj_c_name)
-  dat <- fread(woj_c_name)
+temp_csv <- tempfile(fileext = ".csv")
+
+curr_dates_woj <- as.Date(substr(list.files("gov/raw_data/woj"), 1, 8), "%Y%m%d")
+
+if (!Sys.Date() %in% curr_dates_woj) {
+  download.file(sprintf("%s%s/data", main_url, woj_daily_hash), temp_csv)
+  dat <- fread(temp_csv)
   dat$wojewodztwo <- if (dat[[woj_var]][1] != all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
-  write.csv(dat, woj_c_name)
+  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_woj - 1)) {
+    write.csv(dat, woj_c_name)
+  }
 }
 
 pow_c_name <- sprintf("gov/raw_data/pow/%s074502_rap_rcb_pow_eksport.csv", format(Sys.Date(), "%Y%m%d"))
 
-if (! Sys.Date() %in% as.Date(substr(list.files("gov/raw_data/pow"), 1, 8), "%Y%m%d")) {
-  download.file(sprintf("%s%s/data", main_url, pow_daily_hash), pow_c_name)
-  dat <- fread(pow_c_name)
+curr_dates_pow <- as.Date(substr(list.files("gov/raw_data/pow"), 1, 8), "%Y%m%d")
+
+if (!Sys.Date() %in% curr_dates_pow) {
+  download.file(sprintf("%s%s/data", main_url, pow_daily_hash), temp_csv)
+  dat <- fread(temp_csv)
   dat$wojewodztwo <- if (dat[[woj_var]][1] != all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
   dat$powiat_miasto <- if (dat[[pow_var]][1] != all_id) str_conv(dat[[pow_var]], pol_encoding) else dat[[pow_var]]
-  write.csv(dat, pow_c_name)
+  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_pow - 1)) {
+    write.csv(dat, pow_c_name)
+  }
 }
 
 # Przetwarzanie

@@ -31,16 +31,30 @@ dir.create(path_res)
 dir.create(path_pow, recursive = TRUE)
 dir.create(path_woj, recursive = TRUE)
 
+temp_csv <- tempfile(fileext = ".csv")
+
 woj_c_name <- sprintf("gov/raw_data_vac/woj/%s060000_rap_rcb_woj_eksport_vac.csv", format(Sys.Date(), "%Y%m%d"))
 
-if (! Sys.Date() %in% as.Date(substr(list.files(path_woj), 1, 8), "%Y%m%d")) {
-  download.file(sprintf("%s%s/data", main_url, woj_sha), woj_c_name)
+curr_dates_woj <- as.Date(substr(list.files(path_woj), 1, 8), "%Y%m%d")
+
+if (!Sys.Date() %in% curr_dates_woj) {
+  download.file(sprintf("%s%s/data", main_url, woj_sha), temp_csv)
+  dat <- fread(temp_csv)
+  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_woj - 1)) {
+    write.csv(dat, woj_c_name)
+  }
 }
 
 pow_c_name <- sprintf("gov/raw_data_vac/pow/%s074502_rap_rcb_pow_eksport_vac.csv", format(Sys.Date(), "%Y%m%d"))
 
-if (! Sys.Date() %in% as.Date(substr(list.files(path_pow), 1, 8), "%Y%m%d")) {
-  download.file(sprintf("%s%s/data", main_url, pow_sha), pow_c_name)
+curr_dates_pow <- as.Date(substr(list.files(path_pow), 1, 8), "%Y%m%d")
+
+if (!Sys.Date() %in% curr_dates_pow) {
+  download.file(sprintf("%s%s/data", main_url, pow_sha), temp_csv)
+  dat <- fread(temp_csv)
+  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_pow - 1)) {
+    write.csv(dat, pow_c_name)
+  }
 }
 
 # Przetwarzanie
