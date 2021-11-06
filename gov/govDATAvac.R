@@ -40,9 +40,7 @@ curr_dates_woj <- as.Date(substr(list.files(path_woj), 1, 8), "%Y%m%d")
 if (!Sys.Date() %in% curr_dates_woj) {
   download.file(sprintf("%s%s/data", main_url, woj_sha), temp_csv)
   dat <- fread(temp_csv)
-  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_woj - 1)) {
-    write.csv(dat, woj_c_name)
-  }
+  write.csv(dat, woj_c_name)
 }
 
 pow_c_name <- sprintf("gov/raw_data_vac/pow/%s074502_rap_rcb_pow_eksport_vac.csv", format(Sys.Date(), "%Y%m%d"))
@@ -52,9 +50,7 @@ curr_dates_pow <- as.Date(substr(list.files(path_pow), 1, 8), "%Y%m%d")
 if (!Sys.Date() %in% curr_dates_pow) {
   download.file(sprintf("%s%s/data", main_url, pow_sha), temp_csv)
   dat <- fread(temp_csv)
-  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_pow - 1)) {
-    write.csv(dat, pow_c_name)
-  }
+  write.csv(dat, pow_c_name)
 }
 
 # Przetwarzanie
