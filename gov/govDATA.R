@@ -21,11 +21,8 @@ path_data <- tempdir(check = TRUE)
 
 path_res_pow1 <- "gov/data/pow_df.csv"
 path_res_pow2 <- "gov/data/pow_df_full.csv"
-
 path_res_woj <- "gov/data/woj_df.csv"
-
 path_res_pow_vac <- "gov/data/pow_df_vac.csv"
-
 path_res_woj_vac <- "gov/data/woj_df_vac.csv"
 
 tempzip <- tempfile(fileext = ".zip")
@@ -34,8 +31,6 @@ woj_var <- "wojewodztwo"
 pow_var <- "powiat_miasto"
 
 dir.create(path_res)
-dir.create(path_data, recursive = TRUE)
-dir.create(path_data, recursive = TRUE)
 
 # Powiaty
 download.file(paste0(main_url, pow_sha, "/data"), tempzip)
