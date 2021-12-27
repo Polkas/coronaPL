@@ -14,78 +14,52 @@ main_url <- "https://arcgis.com/sharing/rest/content/items/"
 woj_sha <- "a8c562ead9c54e13a135b02e0d875ffb"
 woj_sha_old <- "b03b454aed9b4154ba50df4ba9e1143b"
 pow_sha <- "e16df1fa98c2452783ec10b0aea4b341"
+all_vac_sha <- "b860f2797f7f4da789cb6fccf6bd5bc7"
 
 pol_encoding <- "Windows-1250"
-path_pow <- "gov/raw_data/pow"
-path_woj <- "gov/raw_data/woj"
+path_data <- tempdir(check = TRUE)
 
 path_res_pow1 <- "gov/data/pow_df.csv"
 path_res_pow2 <- "gov/data/pow_df_full.csv"
 
 path_res_woj <- "gov/data/woj_df.csv"
 
-path_res <- "gov/data"
+path_res_pow_vac <- "gov/data/pow_df_vac.csv"
+
+path_res_woj_vac <- "gov/data/woj_df_vac.csv"
+
 tempzip <- tempfile(fileext = ".zip")
-all_id <- "Cały kraj"
+all_id <- c("cały kraj", "Cały kraj", "Cały Kraj")
 woj_var <- "wojewodztwo"
 pow_var <- "powiat_miasto"
 
 dir.create(path_res)
-dir.create(path_pow, recursive = TRUE)
-dir.create(path_woj, recursive = TRUE)
+dir.create(path_data, recursive = TRUE)
+dir.create(path_data, recursive = TRUE)
 
 # Powiaty
 download.file(paste0(main_url, pow_sha, "/data"), tempzip)
-unzip(tempzip, exdir = path_pow)
+unzip(tempzip, exdir = path_data)
 # Wojewodztwa
 download.file(paste0(main_url, woj_sha, "/data"), tempzip)
-unzip(tempzip, exdir = path_woj)
-
-woj_daily_hash <- "153a138859bb4c418156642b5b74925b"
-pow_daily_hash <- "6ff45d6b5b224632a672e764e04e8394"
-
-woj_c_name <- sprintf("gov/raw_data/woj/%s060000_rap_rcb_woj_eksport.csv", format(Sys.Date(), "%Y%m%d"))
-
-temp_csv <- tempfile(fileext = ".csv")
-
-curr_dates_woj <- as.Date(substr(list.files("gov/raw_data/woj"), 1, 8), "%Y%m%d")
-
-if (!Sys.Date() %in% curr_dates_woj) {
-  download.file(sprintf("%s%s/data", main_url, woj_daily_hash), temp_csv)
-  dat <- fread(temp_csv)
-  dat$wojewodztwo <- if (dat[[woj_var]][1] != all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
-  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_woj - 1)) {
-    write.csv(dat, woj_c_name)
-  }
-}
-
-pow_c_name <- sprintf("gov/raw_data/pow/%s074502_rap_rcb_pow_eksport.csv", format(Sys.Date(), "%Y%m%d"))
-
-curr_dates_pow <- as.Date(substr(list.files("gov/raw_data/pow"), 1, 8), "%Y%m%d")
-
-if (!Sys.Date() %in% curr_dates_pow) {
-  download.file(sprintf("%s%s/data", main_url, pow_daily_hash), temp_csv)
-  dat <- fread(temp_csv)
-  dat$wojewodztwo <- if (dat[[woj_var]][1] != all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
-  dat$powiat_miasto <- if (dat[[pow_var]][1] != all_id) str_conv(dat[[pow_var]], pol_encoding) else dat[[pow_var]]
-  if (!as.Date(dat$stan_rekordu_na[1]) %in% (curr_dates_pow - 1)) {
-    write.csv(dat, pow_c_name)
-  }
-}
+unzip(tempzip, exdir = path_data)
+# Vaccination
+download.file(paste0(main_url, all_vac_sha, "/data"), tempzip)
+unzip(tempzip, exdir = path_data)
 
 # Przetwarzanie
 # niepelny plik 20210107054535_rap_gov_pow_eksport.csv
 pow_df <- rbindlist(lapply(
-  list.files(path_pow, pattern = "csv"),
+  list.files(path_data, pattern = "_pow_eksport.csv"),
   function(x) {
     dat <- fread(
-      file = paste0(path_pow, "/", x),
+      file = paste0(path_data, "/", x),
       colClasses = list(character = "liczba_na_10_tys_mieszkancow"),
     )
     dat$name <- x
     dat$Date <- ymd(substr(x, 1, 8))
-    dat[[woj_var]] <- if (dat[[woj_var]][1] != all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
-    dat[[pow_var]] <- if (dat[[pow_var]][1] != all_id) str_conv(dat[[pow_var]], pol_encoding) else dat[[pow_var]]
+    dat[[woj_var]] <- if (!dat[[woj_var]][1] %in% all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
+    dat[[pow_var]] <- if (!dat[[pow_var]][1] %in% all_id) str_conv(dat[[pow_var]], pol_encoding) else dat[[pow_var]]
     dat
   }
 ), fill = TRUE)
@@ -108,12 +82,12 @@ write.csv(pow_df[, c("wojewodztwo",
 write.csv(pow_df, path_res_pow2, row.names = FALSE)
 
 woj_df <- rbindlist(lapply(
-  list.files(path_woj, pattern = "csv"),
+  list.files(path_data, pattern = "_woj_eksport.csv"),
   function(x) {
-    dat <- fread(file = paste0(path_woj, "/", x))
+    dat <- fread(file = paste0(path_data, "/", x))
     dat$name <- x
     dat$Date <- ymd(substr(x, 1, 8))
-    dat[[woj_var]] <- if (dat[[woj_var]][1] != all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
+    dat[[woj_var]] <- if (!dat[[woj_var]][1] %in% all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
     dat
   }
 ), fill = TRUE)
@@ -128,3 +102,38 @@ woj_df$liczba_na_10_tys_mieszkancow <- as.numeric(woj_df$liczba_na_10_tys_mieszk
 # woj_df_final <- rbindlist(list(woj_df_old, woj_df), fill = TRUE)
 
 write.csv(woj_df, path_res_woj, row.names = FALSE)
+
+# Vaccination
+
+pow_df <- rbindlist(lapply(
+  list.files(path_data, pattern = "pow_szczepienia.csv"),
+  function(x) {
+    dat <- fread(
+      file = paste0(path_data, "/", x)
+    )
+    dat$name <- x
+    dat$Date <- ymd(substr(x, 1, 8))
+    dat[[woj_var]] <- if (!tail(dat[[woj_var]], 1) %in% all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
+    dat[[pow_var]] <- if (dat[[pow_var]][nrow(dat) - 1] == "Świnoujście") dat[[pow_var]] else str_conv(dat[[pow_var]], pol_encoding)
+    dat
+  }
+), fill = TRUE)
+
+pow_df$stan_rekordu_na <- pow_df$Date - 1
+
+write.csv(pow_df, path_res_pow_vac, row.names = FALSE)
+
+woj_df <- rbindlist(lapply(
+  list.files(path_data, pattern = "woj_szczepienia.csv"),
+  function(x) {
+    dat <- fread(file = paste0(path_data, "/", x))
+    dat$name <- x
+    dat$Date <- ymd(substr(x, 1, 8))
+    dat[[woj_var]] <- if (!tail(dat[[woj_var]], 1) %in% all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
+    dat
+  }
+), fill = TRUE)
+
+woj_df$stan_rekordu_na <- woj_df$Date - 1
+write.csv(woj_df, path_res_woj_vac, row.names = FALSE)
+
