@@ -19,6 +19,7 @@ all_vac_sha <- "b860f2797f7f4da789cb6fccf6bd5bc7"
 pol_encoding <- "Windows-1250"
 path_data <- tempdir(check = TRUE)
 
+path_res <- "gov/data"
 path_res_pow1 <- "gov/data/pow_df.csv"
 path_res_pow2 <- "gov/data/pow_df_full.csv"
 path_res_woj <- "gov/data/woj_df.csv"
