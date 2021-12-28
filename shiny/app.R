@@ -81,7 +81,6 @@ stolice = c(
 pov_raw@data$Miasto <- ifelse(pov_raw@data$powiat_miasto %in% stolice, pov_raw@data$powiat_miasto, "")
 
 ui <- miniPage(
-  useShinyalert(),
   gadgetTitleBar("Corona19 Lokalnie",
                  left = NULL,
                  right = miniTitleBarButton("done", "Done", primary = TRUE)
@@ -173,7 +172,10 @@ server <- function(input, output, session) {
                                        HTML(paste0("<strong>", pow_df_all_last$stan_rekordu_na, "</strong><br>",
                                                    "Zakazenia: ", pow_df_all_last$liczba_przypadkow, "<br>"
                                        )),
-                                       sparkline::sparkline(pow_df_all_14$liczba_przypadkow, width = "100px"))
+                                       sparkline::sparkline(pow_df_all_14$liczba_przypadkow, width = "100px"),
+                                       HTML("<br>"),
+                                       HTML(paste0("Zgony: ", pow_df_all_last$zgony, "<br>")),
+                                       sparkline::sparkline(pow_df_all_14$zgony, width = "100px"))
   })
 
 }
