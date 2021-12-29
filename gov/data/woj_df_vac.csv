@@ -1997,24 +1997,6 @@
 "wielkopolskie",1053222,18321,256850,4698,"t30","20210505_rap_rcb_woj_szczepienia.csv",2021-05-05,NA,NA,NA,NA,NA,NA,NA,2021-05-04
 "zachodniopomorskie",560128,10243,126887,3251,"t32","20210505_rap_rcb_woj_szczepienia.csv",2021-05-05,NA,NA,NA,NA,NA,NA,NA,2021-05-04
 "cały kraj",12225861,220325,3039820,61185,"t00","20210505_rap_rcb_woj_szczepienia.csv",2021-05-05,NA,NA,NA,NA,NA,NA,NA,2021-05-04
-"inne_puste_woj",44646,8824,3484,346,"","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"dolnośląskie",1050915,27821,268805,8405,"t02","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"kujawsko-pomorskie",634809,19612,154079,5735,"t04","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"lubelskie",675603,19085,184765,6586,"t06","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"lubuskie",335607,12001,84875,4275,"t08","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"łódzkie",825501,25590,209470,7792,"t10","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"małopolskie",1015937,27754,254849,9093,"t12","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"mazowieckie",1923578,49362,489768,18470,"t14","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"opolskie",316927,12171,80123,2774,"t16","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"podkarpackie",649372,17503,175770,7272,"t18","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"podlaskie",413537,11113,109254,3209,"t20","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"pomorskie",830307,26557,208169,7093,"t22","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"śląskie",1438499,47751,336120,13549,"t24","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"świętokrzyskie",357597,10714,88261,3217,"t26","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"warmińsko-mazurskie",436405,11280,112268,4170,"t28","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"wielkopolskie",1086363,32090,267637,10643,"t30","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"zachodniopomorskie",579224,17517,132358,4968,"t32","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
-"cały kraj",12614827,376745,3160055,117597,"t00","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
 "inne_puste_woj",NA,8824,3484,346,"t0","20210506075453_rap_rcb_woj_szczepienia.csv",2021-05-06,44646,NA,NA,NA,NA,NA,NA,2021-05-05
 "dolnośląskie",NA,27821,268805,8405,"t02","20210506075453_rap_rcb_woj_szczepienia.csv",2021-05-06,1050915,NA,NA,NA,NA,NA,NA,2021-05-05
 "kujawsko-pomorskie",NA,19612,154079,5735,"t04","20210506075453_rap_rcb_woj_szczepienia.csv",2021-05-06,634809,NA,NA,NA,NA,NA,NA,2021-05-05
@@ -2033,6 +2015,24 @@
 "wielkopolskie",NA,32090,267637,10643,"t30","20210506075453_rap_rcb_woj_szczepienia.csv",2021-05-06,1086363,NA,NA,NA,NA,NA,NA,2021-05-05
 "zachodniopomorskie",NA,17517,132358,4968,"t32","20210506075453_rap_rcb_woj_szczepienia.csv",2021-05-06,579224,NA,NA,NA,NA,NA,NA,2021-05-05
 "cały kraj",NA,376745,3160055,117597,"t00","20210506075453_rap_rcb_woj_szczepienia.csv",2021-05-06,12614827,NA,NA,NA,NA,NA,NA,2021-05-05
+"inne_puste_woj",44646,8824,3484,346,"","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"dolnośląskie",1050915,27821,268805,8405,"t02","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"kujawsko-pomorskie",634809,19612,154079,5735,"t04","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"lubelskie",675603,19085,184765,6586,"t06","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"lubuskie",335607,12001,84875,4275,"t08","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"łódzkie",825501,25590,209470,7792,"t10","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"małopolskie",1015937,27754,254849,9093,"t12","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"mazowieckie",1923578,49362,489768,18470,"t14","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"opolskie",316927,12171,80123,2774,"t16","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"podkarpackie",649372,17503,175770,7272,"t18","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"podlaskie",413537,11113,109254,3209,"t20","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"pomorskie",830307,26557,208169,7093,"t22","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"śląskie",1438499,47751,336120,13549,"t24","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"świętokrzyskie",357597,10714,88261,3217,"t26","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"warmińsko-mazurskie",436405,11280,112268,4170,"t28","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"wielkopolskie",1086363,32090,267637,10643,"t30","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"zachodniopomorskie",579224,17517,132358,4968,"t32","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
+"cały kraj",12614827,376745,3160055,117597,"t00","20210506_rap_rcb_woj_szczepienia.csv",2021-05-06,NA,NA,NA,NA,NA,NA,NA,2021-05-05
 "inne_puste_woj",NA,1397,2978,109,"t0","20210507074932_rap_rcb_woj_szczepienia.csv",2021-05-07,24994,NA,NA,NA,NA,NA,NA,2021-05-06
 "dolnośląskie",NA,30903,278544,9628,"t02","20210507074932_rap_rcb_woj_szczepienia.csv",2021-05-07,1082907,NA,NA,NA,NA,NA,NA,2021-05-06
 "kujawsko-pomorskie",NA,22160,160615,6457,"t04","20210507074932_rap_rcb_woj_szczepienia.csv",2021-05-07,661106,NA,NA,NA,NA,NA,NA,2021-05-06
