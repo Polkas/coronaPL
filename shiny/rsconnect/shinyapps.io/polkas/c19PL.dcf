@@ -5,9 +5,9 @@ account: polkas
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4096992
-bundleId: 5414254
+bundleId: 5574373
 url: https://polkas.shinyapps.io/c19PL/
-when: 1640689473.65679
-lastSyncTime: 1640689473.6568
+when: 1644758937.989
+lastSyncTime: 1644758937.98901
 asMultiple: FALSE
 asStatic: FALSE

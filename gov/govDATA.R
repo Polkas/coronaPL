@@ -49,11 +49,12 @@ pow_df <- rbindlist(lapply(
   list.files(path_data, pattern = "_pow_eksport.csv"),
   function(x) {
     dat <- fread(
-      file = paste0(path_data, "/", x),
-      colClasses = list(character = "liczba_na_10_tys_mieszkancow"),
+      file = paste0(path_data, "/", x)
     )
     dat$name <- x
     dat$Date <- ymd(substr(x, 1, 8))
+    dat$powiat_miasto <- dat$powiat
+    dat$liczba_na_10_tys_mieszkancow <- dat$liczba_wszystkich_zakazen_na_10_tys_mieszkancow
     dat[[woj_var]] <- if (!dat[[woj_var]][1] %in% all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
     dat[[pow_var]] <- if (!dat[[pow_var]][1] %in% all_id) str_conv(dat[[pow_var]], pol_encoding) else dat[[pow_var]]
     dat
@@ -81,6 +82,7 @@ woj_df <- rbindlist(lapply(
   list.files(path_data, pattern = "_woj_eksport.csv"),
   function(x) {
     dat <- fread(file = paste0(path_data, "/", x))
+    dat$liczba_na_10_tys_mieszkancow <- dat$liczba_wszystkich_zakazen_na_10_tys_mieszkancow
     dat$name <- x
     dat$Date <- ymd(substr(x, 1, 8))
     dat[[woj_var]] <- if (!dat[[woj_var]][1] %in% all_id) str_conv(dat[[woj_var]], pol_encoding) else dat[[woj_var]]
