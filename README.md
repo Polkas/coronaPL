@@ -18,14 +18,14 @@ library(data.table)
 
 # infections
 pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
-pow_df_full <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv")
+pow_df_full <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv.gz")
 
-woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
+woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv.gz")
 
 # vaccinations
 pow_df_vac <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_vac.csv.gz")
 
-woj_df_vac <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df_vac.csv")
+woj_df_vac <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df_vac.csv.gz")
 ```
 
 **python**
@@ -35,7 +35,7 @@ import pandas as pd
 
 # infections
 pow_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
-pow_df_full = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv.gz")
+pow_df_full = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv.gz" encoding_errors='ignore')
 
 woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv.gz")
 
