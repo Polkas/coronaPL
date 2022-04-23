@@ -20,11 +20,11 @@ pol_encoding <- "Windows-1250"
 path_data <- tempdir(check = TRUE)
 
 path_res <- "gov/data"
-path_res_pow1 <- "gov/data/pow_df.csv"
-path_res_pow2 <- "gov/data/pow_df_full.csv"
-path_res_woj <- "gov/data/woj_df.csv"
-path_res_pow_vac <- "gov/data/pow_df_vac.csv"
-path_res_woj_vac <- "gov/data/woj_df_vac.csv"
+path_res_pow1 <- gzfile("gov/data/pow_df.csv.gz")
+path_res_pow2 <- gzfile("gov/data/pow_df_full.csv.gz")
+path_res_woj <- gzfile("gov/data/woj_df.csv.gz")
+path_res_pow_vac <- gzfile("gov/data/pow_df_vac.csv.gz")
+path_res_woj_vac <- gzfile("gov/data/woj_df_vac.csv.gz")
 
 tempzip <- tempfile(fileext = ".zip")
 all_id <- c("cały kraj", "Cały kraj", "Cały Kraj")

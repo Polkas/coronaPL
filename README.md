@@ -15,20 +15,34 @@ I decided to build a mobile phone suited app to check the coronavirus pandemic s
 
 ```r
 library(data.table)
-pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+
+# infections
+pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
 pow_df_full <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv")
 
 woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
+
+# vaccinations
+pow_df_vac <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_vac.csv.gz")
+
+woj_df_vac <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df_vac.csv")
 ```
 
 **python**
 
 ```python
 import pandas as pd
-pow_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
-pow_df_full = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv")
 
-woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv")
+# infections
+pow_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
+pow_df_full = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv.gz")
+
+woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv.gz")
+
+# vaccinations
+pow_df_vac = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_vac.csv.gz")
+
+woj_df_vac = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df_vac.csv.gz")
 ```
 
 ## Data COVID19 GOV
