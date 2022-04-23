@@ -12,8 +12,9 @@ library(htmltools)
 library(htmlwidgets)
 library(scales)
 library(zoo)
+library(R.utils)
 
-pow_df <- fread("http://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv")
+pow_df <- fread("http://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
 pow_df_all <- pow_df[pow_df$powiat_miasto == "Cały kraj", ]
 pow_df_all_14 <- pow_df[pow_df$powiat_miasto == "Cały kraj" & pow_df$stan_rekordu_na >= (Sys.Date() - 15), ]
 pow_df_all_last <- pow_df_all[pow_df_all$stan_rekordu_na == tail(pow_df_all$stan_rekordu_na, 1), ]
