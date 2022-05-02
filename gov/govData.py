@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import tempfile
 import urllib.request
@@ -8,7 +9,7 @@ import csv
 import collections
 import datetime
 
-def list2gzip(path, data_list, cols, n_cols = len(cols), encoding = "utf-8"):
+def list2gzip(path, data_list, cols, n_cols, encoding = "utf-8"):
   assert isinstance(path, str)
   assert isinstance(data_list, list)
   assert isinstance(cols, list)
@@ -49,8 +50,8 @@ pow_var = "powiat_miasto"
 
 try:
   os.mkdir(path_res)
-except OSError as error:
-  print(error) 
+except:
+  None
   
 zip_path, _ = urllib.request.urlretrieve(main_url + pow_sha + "/data")
 with zipfile.ZipFile(zip_path, "r") as f:
@@ -135,7 +136,7 @@ for idx, file in enumerate(pow_files):
       res.append(res_row)
 
 list2gzip(path_res_pow1, res, cols_p, 7)
-list2gzip(path_res_pow2, res, cols_p)
+list2gzip(path_res_pow2, res, cols_p, len(cols_p))
 
 # Wojewodztwo
 
@@ -203,7 +204,7 @@ for idx, file in enumerate(woj_files):
       res_row = list(woj_row(**row_dict))
       res.append(res_row)
 
-list2gzip(path_res_woj, res, cols_w)
+list2gzip(path_res_woj, res, cols_w, len(cols_w))
 
 # Powiat Vac
 
@@ -262,7 +263,7 @@ for idx, file in enumerate(pow_vac_files):
       res_row = list(pow_row_v(**row_dict))
       res.append(res_row)
 
-list2gzip(path_res_pow_vac, res, cols_p_v)
+list2gzip(path_res_pow_vac, res, cols_p_v, len(cols_p_v))
 
 # Wojewodztwo Vac
 
@@ -321,4 +322,4 @@ for idx, file in enumerate(woj_vac_files):
       res_row = list(woj_row_v(**row_dict))
       res.append(res_row)
 
-list2gzip(path_res_woj_vac, res, cols_w_v)
+list2gzip(path_res_woj_vac, res, cols_w_v, len(cols_w_v))
