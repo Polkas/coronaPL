@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import tempfile
-import urllib
+from urllib.request import urlretrieve
 import zipfile
 import glob
 import gzip
@@ -53,15 +53,15 @@ try:
 except:
   None
   
-zip_path, _ = urllib.request.urlretrieve(main_url + pow_sha + "/data")
+zip_path, _ = urlretrieve(main_url + pow_sha + "/data")
 with zipfile.ZipFile(zip_path, "r") as f:
     f.extractall(path_data)
 
-zip_path, _ = urllib.request.urlretrieve(main_url + woj_sha + "/data")
+zip_path, _ = urlretrieve(main_url + woj_sha + "/data")
 with zipfile.ZipFile(zip_path, "r") as f:
     f.extractall(path_data)
 
-zip_path, _ = urllib.request.urlretrieve(main_url + all_vac_sha + "/data")
+zip_path, _ = urlretrieve(main_url + all_vac_sha + "/data")
 with zipfile.ZipFile(zip_path, "r") as f:
     f.extractall(path_data)
 
