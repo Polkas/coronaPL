@@ -2,7 +2,7 @@ name: coronaPL gov PL data refresh
 
 on:
   schedule:
-    - cron:  '30 20 * * *'
+    - cron:  '32 18 * * *'
 jobs:
   data_refresh_master:
     name: dataset refresh
