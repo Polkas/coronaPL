@@ -27,12 +27,12 @@ all_vac_sha = "b860f2797f7f4da789cb6fccf6bd5bc7"
 pol_encoding = "Windows-1250"
 path_data = tempfile.mkdtemp()
 
-path_res = "gov/data"
-path_res_pow1 = "gov/data/pow_df.csv.gz"
-path_res_pow2 = "gov/data/pow_df_full.csv.gz"
-path_res_woj = "gov/data/woj_df.csv.gz"
-path_res_pow_vac = "gov/data/pow_df_vac.csv.gz"
-path_res_woj_vac = "gov/data/woj_df_vac.csv.gz"
+path_res = "./gov/data"
+path_res_pow1 = "./gov/data/pow_df.csv.gz"
+path_res_pow2 = "./gov/data/pow_df_full.csv.gz"
+path_res_woj = "./gov/data/woj_df.csv.gz"
+path_res_pow_vac = "./gov/data/pow_df_vac.csv.gz"
+path_res_woj_vac = "./gov/data/woj_df_vac.csv.gz"
 
 try:   
   os.remove(path_res_pow1)
