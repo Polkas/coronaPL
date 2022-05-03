@@ -13,6 +13,7 @@ library(htmlwidgets)
 library(scales)
 library(zoo)
 library(R.utils)
+library(sp)
 
 pow_df <- fread("http://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
 pow_df_all <- pow_df[pow_df$powiat_miasto == "Cały kraj", ]
@@ -20,7 +21,7 @@ pow_df_all_14 <- pow_df[pow_df$powiat_miasto == "Cały kraj" & pow_df$stan_rekor
 pow_df_all_last <- pow_df_all[pow_df_all$stan_rekordu_na == tail(pow_df_all$stan_rekordu_na, 1), ]
 pow_df <- pow_df[pow_df$powiat_miasto != "Cały kraj", ]
 
-pov_raw <- readRDS("pov_small.RDS")
+pov_raw <- readRDS("./pov_small.RDS")
 
 base_cols <- c("stan_rekordu_na",
                "liczba_na_10_tys_mieszkancow",
@@ -54,9 +55,9 @@ Dokładnie brane sa pod wage średnie z 3 obserwacji dla danego dnia tygodnia.
 Oszacowana statystyka nie powinna wpływać na zachowania.
 Wszelkie środki ostrożności są nadal konieczne."
 
-#exponential and historical max
+# exponential and historical max
 bins <- round(c(0, 0.5, exp(seq(log(1), log(max(pow_df$liczba_na_10_tys_mieszkancow, na.rm = TRUE)), length = 5))), 2)
-pal <- colorBin("YlOrRd", domain = range(pow_df$liczba_na_10_tys_mieszkancow), bins = bins)
+pal <- leaflet::colorBin("YlOrRd", domain = range(pow_df$liczba_na_10_tys_mieszkancow), bins = bins)
 
 stolice = c(
   "Białystok",
@@ -99,7 +100,7 @@ ui <- miniPage(
 )
 
 server <- function(input, output, session) {
-
+browser()
   output$c19 <- renderLeaflet({
 
     ll <- leaflet() %>%

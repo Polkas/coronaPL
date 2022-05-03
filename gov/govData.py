@@ -60,7 +60,7 @@ base_cols_p = ["wojewodztwo", "powiat_miasto", "liczba_przypadkow", "liczba_na_1
 cols_p = list(collections.OrderedDict().fromkeys(base_cols_p + headers).keys())
 pow_row = collections.namedtuple('pow_row', cols_p)
 
-pow_mapp = {"liczba_wszystkich_zakazen":"liczba_przypadkow","liczba_wszystkich_zakazen_na_10_tys_mieszkancow":"liczba_na_10_tys_mieszkancow"}
+pow_mapp = {"liczba_wszystkich_zakazen":"liczba_przypadkow","liczba_wszystkich_zakazen_na_10_tys_mieszkancow":"liczba_na_10_tys_mieszkancow", "powiat":"powiat_miasto"}
 res = process_gov(pow_files, ["20210107"], pow_mapp, pow_row, 1, all_id)
 
 list2gzip(path_res_pow1, res, cols_p, 7)
