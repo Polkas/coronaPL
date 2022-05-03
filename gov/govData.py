@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from gov.govDataUtils.funs import *
+import os
+os.chdir("./gov")
+from govDataUtils.funs import *
 
 main_url = "https://arcgis.com/sharing/rest/content/items/"
 # Looks to be stable
