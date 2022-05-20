@@ -41,3 +41,6 @@ vignettes/*.pdf
 # git operations
 pathbase.R
 gitoper.R
+
+# python
+/__pycache__
