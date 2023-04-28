@@ -1,6 +1,10 @@
 # coronaPL
 corona virus data from Polish government and more.
 
+### Shiny App with powiat Covid19 data in POLAND
+
+[c19lokalnie](https://polkas.shinyapps.io/c19lokalnie/)
+
 ### Quick COVID19 GOV Data Usage
 
 gov.pl data are published since `2020-11-23`.
