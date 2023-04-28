@@ -1,6 +1,9 @@
 name: coronaPL gov PL data refresh
 on:
-  push
+  push:
+    branches: [main, master]
+  schedule:
+    - cron:  '00 10,12 * * *'
 jobs:
   data_refresh_master:
     name: dataset refresh
