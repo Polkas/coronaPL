@@ -14,7 +14,6 @@ library(data.table)
 
 woj_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv.gz")
 
-# OLD - not updated by gov from 05-2022
 # infections
 pow_df <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
 pow_df_full <- fread("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv.gz")
@@ -30,7 +29,6 @@ import pandas as pd
 
 woj_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/woj_df.csv.gz")
 
-# OLD - not updated by gov from 05-2022
 # infections
 pow_df = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df.csv.gz")
 pow_df_full = pd.read_csv("https://raw.githubusercontent.com/Polkas/coronaPL/main/gov/data/pow_df_full.csv.gz", encoding_errors='ignore')
